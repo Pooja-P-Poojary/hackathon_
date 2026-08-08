@@ -12,70 +12,139 @@ export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  function quickFill(role) {
-    if (role === "faculty") { setEmail("profa@classflow.com"); setPassword("1234"); }
-    if (role === "dean")    { setEmail("dean@classflow.com");  setPassword("1234"); }
-  }
+  // Demo credentials
+  const quickFill = (role) => {
+    if (role === "faculty") {
+      setEmail("faculty@demo.com");
+      setPassword("Demo@123");
+    }
 
-  function handleSubmit(e) {
-    e.preventDefault();
+    if (role === "hod") {
+      setEmail("hod@demo.com");
+      setPassword("Demo@123");
+    }
+
     setError("");
-    setLoading(true);
+  };
 
-    const result = login(email, password);
+  // Login form
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    setLoading(false);
-    if (!result.success) {
-      setError(result.error);
+    setError("");
+
+    if (!email || !password) {
+      setError("Please enter email and password.");
       return;
     }
 
-    if (result.user.role === "dean") navigate("/dean/dashboard");
-    else navigate("/faculty/dashboard"); // your existing Dashboard.jsx
-  }
+    setLoading(true);
+
+    try {
+      const result = await login(email, password);
+
+      if (!result || !result.success) {
+        setError(result?.error || "Invalid email or password.");
+        setLoading(false);
+        return;
+      }
+
+      // Successful login
+      setLoading(false);
+
+      // Go to Dashboard
+      navigate("/", { replace: true });
+    } catch (error) {
+      console.error("Login error:", error);
+
+      setError(
+        "Unable to connect to the server. Please make sure the backend is running."
+      );
+
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="login-page">
-      <div className="login-card">
-        <div className="login-mark">CF</div>
-        <h1>ClassFlow</h1>
-        <p className="login-sub">Faculty Substitution System</p>
+      <div className="login-container">
 
-        <form onSubmit={handleSubmit} className="login-form">
+        <div className="login-logo">
+          CF
+        </div>
+
+        <h1>ClassFlow</h1>
+
+        <p>Faculty Substitution System</p>
+
+        <form
+          onSubmit={handleSubmit}
+          className="login-form"
+        >
+
+          {/* Email */}
           <label>
             Email
+
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@classflow.com"
+              autoComplete="email"
               required
             />
           </label>
 
+          {/* Password */}
           <label>
             Password
+
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
+              autoComplete="current-password"
               required
             />
           </label>
 
-          {error && <div className="login-error">{error}</div>}
+          {/* Error */}
+          {error && (
+            <div className="login-error">
+              {error}
+            </div>
+          )}
 
-          <button type="submit" disabled={loading}>
-            {loading ? "Signing in…" : "Login"}
+          {/* Login */}
+          <button
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Signing in..." : "Login"}
           </button>
         </form>
 
+        {/* Demo login */}
         <div className="login-demo">
           <span>Quick demo login:</span>
-          <button type="button" onClick={() => quickFill("faculty")}>Faculty</button>
-          <button type="button" onClick={() => quickFill("dean")}>Dean</button>
+
+          <button
+            type="button"
+            onClick={() => quickFill("faculty")}
+          >
+            Faculty
+          </button>
+
+          <button
+            type="button"
+            onClick={() => quickFill("hod")}
+          >
+            HOD
+          </button>
         </div>
+
       </div>
     </div>
   );

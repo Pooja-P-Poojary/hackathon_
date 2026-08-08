@@ -10,19 +10,15 @@ const codeRoutes = require("./routes/codeRoutes");
 
 const app = express();
 
-// Connect MongoDB
 connectDB();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/exchanges", exchangeRoutes);
 app.use("/api/analytics", codeRoutes);
 
-// Test route
 app.get("/", (req, res) => {
   res.json({
     message: "ClassFlow API is running",
