@@ -5,6 +5,7 @@ require("dotenv").config();
 const connectDB = require("./config/db");
 
 const exchangeRoutes = require("./routes/exchangeRoutes");
+const codeRoutes = require("./routes/codeRoutes");
 
 const app = express();
 
@@ -17,6 +18,8 @@ app.use(express.json());
 
 // Routes
 app.use("/api/exchanges", exchangeRoutes);
+
+app.use("/api/analytics", codeRoutes);
 
 // Test route
 app.get("/", (req, res) => {
