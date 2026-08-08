@@ -4,6 +4,7 @@ require("dotenv").config();
 
 const connectDB = require("./config/db");
 
+const authRoutes = require("./routes/authRoutes");
 const exchangeRoutes = require("./routes/exchangeRoutes");
 const codeRoutes = require("./routes/codeRoutes");
 
@@ -17,8 +18,8 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+app.use("/api/auth", authRoutes);
 app.use("/api/exchanges", exchangeRoutes);
-
 app.use("/api/analytics", codeRoutes);
 
 // Test route
