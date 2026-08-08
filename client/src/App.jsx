@@ -6,6 +6,7 @@ import Timetable from "./pages/Timetable";
 import DeanApproval from "./pages/DeanApproval";
 import Dashboard from "./pages/Dashboard";
 import Add from "./pages/Add";
+import Analytics from "./pages/code";
 
 import "./App.css";
 
@@ -28,6 +29,8 @@ function App() {
 
           {/* Dean Approval */}
           <Route path="/dean-approval" element={<DeanApproval />} />
+
+          <Route path="/analytics" element={<Analytics />} />
 
           {/* Any unknown URL */}
           <Route path="*" element={<Navigate to="/login" replace />} />
