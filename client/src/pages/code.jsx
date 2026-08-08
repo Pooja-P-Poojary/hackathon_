@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./code.css";
+import "../styles/code.css";
 
 const workload = [
   { name: "Prof. A", dept: "Computer Networks", hrs: 16, max: 20, given: 2, received: 1, net: -1 },
