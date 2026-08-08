@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const User = require("./models/User");
 const Exchange = require("./models/exchange");
+const bcrypt = require("bcryptjs");
 require("dotenv").config();
 
 const seedDemoData = async () => {
@@ -24,20 +25,21 @@ const seedDemoData = async () => {
     // CREATE DEMO USERS
     // -----------------------------
 
-    const faculty = await User.create({
-      name: "Prof. A",
-      email: "faculty@demo.com",
-      password: "Demo@123",
-      role: "faculty",
-    });
+    const hashedPassword = await bcrypt.hash("Demo@123", 10);
 
-    const hod = await User.create({
-      name: "HOD",
-      email: "hod@demo.com",
-      password: "Demo@123",
-      role: "hod",
-    });
+const faculty = await User.create({
+  name: "Prof. A",
+  email: "faculty@demo.com",
+  password: hashedPassword,
+  role: "faculty",
+});
 
+const hod = await User.create({
+  name: "HOD",
+  email: "hod@demo.com",
+  password: hashedPassword,
+  role: "hod",
+});
     console.log("Demo users created");
 
     // -----------------------------
