@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import {
   Search,
   Sparkles,
@@ -17,8 +18,10 @@ import {
   Download,
   CheckCircle2,
   XCircle,
+  Calendar,
+  ClipboardCheck,
+  BarChart3,
 } from "lucide-react";
-
 /* ---------------------------------------------------------------------- */
 /* Data — stand-in for the MongoDB "Events / Documents / Faculty" model    */
 /* ---------------------------------------------------------------------- */
@@ -243,10 +246,42 @@ export default function Dashboard() {
           >
             DV
           </div>
-          <SideIcon icon={Network} active t={t} label="Graph" />
-          <SideIcon icon={Users} t={t} label="Faculty" />
-          <SideIcon icon={AlertTriangle} t={t} label="Alerts" badge={missingDocs} />
-          <SideIcon icon={FileText} t={t} label="Documents" />
+          <Link to="/faculty/timetable">
+  <SideIcon
+    icon={Calendar}
+    t={t}
+    label="Timetable"
+  />
+</Link>
+
+<Link to="/dean-approval">
+  <SideIcon
+    icon={ClipboardCheck}
+    t={t}
+    label="Dean Approval"
+  />
+</Link>
+
+<Link to="/analytics">
+  <SideIcon
+    icon={BarChart3}
+    t={t}
+    label="Analytics"
+  />
+</Link>
+
+<SideIcon
+  icon={AlertTriangle}
+  t={t}
+  label="Alerts"
+  badge={missingDocs}
+/>
+
+<SideIcon
+  icon={FileText}
+  t={t}
+  label="Documents"
+/>
         </aside>
 
         {/* ---------------- Main ---------------- */}

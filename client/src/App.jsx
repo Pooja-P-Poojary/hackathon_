@@ -2,10 +2,9 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 
 import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 import Timetable from "./pages/Timetable";
 import DeanApproval from "./pages/DeanApproval";
-import Dashboard from "./pages/Dashboard";
-import Add from "./pages/Add";
 import Analytics from "./pages/code";
 
 import "./App.css";
@@ -15,25 +14,37 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
+
           {/* Login */}
           <Route path="/login" element={<Login />} />
-
-          {/* Faculty */}
-          <Route path="/faculty/timetable" element={<Timetable />} />
 
           {/* Dashboard */}
           <Route path="/" element={<Dashboard />} />
 
-          {/* Add */}
-          <Route path="/add" element={<Add />} />
+          {/* Timetable */}
+          <Route
+            path="/faculty/timetable"
+            element={<Timetable />}
+          />
 
           {/* Dean Approval */}
-          <Route path="/dean-approval" element={<DeanApproval />} />
+          <Route
+            path="/dean-approval"
+            element={<DeanApproval />}
+          />
 
-          <Route path="/analytics" element={<Analytics />} />
+          {/* Analytics */}
+          <Route
+            path="/analytics"
+            element={<Analytics />}
+          />
 
-          {/* Any unknown URL */}
-          <Route path="*" element={<Navigate to="/login" replace />} />
+          {/* Unknown URL */}
+          <Route
+            path="*"
+            element={<Navigate to="/login" replace />}
+          />
+
         </Routes>
       </AuthProvider>
     </BrowserRouter>
