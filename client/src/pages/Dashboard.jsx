@@ -282,6 +282,13 @@ export default function Dashboard() {
   t={t}
   label="Documents"
 />
+<Link to="/login">
+  <SideIcon
+    icon={Users}
+    t={t}
+    label="Login / Logout"
+  />
+</Link>
         </aside>
 
         {/* ---------------- Main ---------------- */}
